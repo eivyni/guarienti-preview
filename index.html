@@ -187,7 +187,7 @@
                     <figure class="sobre-gallery-item fade-in">
                         <picture>
                             <source type="image/webp" srcset="optimized_images/carne2-320.webp 320w, optimized_images/carne2-480.webp 480w, optimized_images/carne2-768.webp 768w, optimized_images/carne2-1024.webp 1024w" sizes="(max-width: 768px) 100vw, 50vw">
-                            <img src="optimized_images/carne2.jpg" alt="Carne fresca embalada a vácuo em câmara de refrigeração" loading="lazy" decoding="async" width="800" height="1066">
+                            <img src="optimized_images/carne2.jpg" srcset="optimized_images/carne2-320.jpg 320w, optimized_images/carne2-480.jpg 480w, optimized_images/carne2-768.jpg 768w, optimized_images/carne2-1024.jpg 1024w" sizes="(max-width: 768px) 100vw, 50vw" alt="Carne fresca embalada a vácuo em câmara de refrigeração" loading="lazy" decoding="async" width="800" height="1066">
                         </picture>
                         <figcaption>Apresentação impecável: cortes premium que valorizam a exposição e atraem o consumidor final.</figcaption>
                     </figure>
@@ -307,9 +307,9 @@
 
                 <div class="contato-form-container fade-in">
                     <h3>Envie uma Mensagem</h3>
-                    <!-- Envio via Web3Forms (gratuito). Cole sua chave no campo "access_key" abaixo. -->
+                    <!-- Envio via Web3Forms -->
                     <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                        <input type="hidden" name="access_key" value="COLE_SUA_CHAVE_WEB3FORMS_AQUI">
+                        <input type="hidden" name="access_key" value="764d38a5-c132-41e5-881c-e7a0e0a73084">
                         <input type="hidden" name="subject" value="Novo contato pelo site - Frigorífico Guarienti">
                         <input type="hidden" name="from_name" value="Site Frigorífico Guarienti">
                         <!-- Anti-spam (honeypot): deve ficar invisível e vazio -->
@@ -332,7 +332,7 @@
                         </div>
                         <div class="form-consent">
                             <input type="checkbox" id="consentimento" name="consentimento_lgpd" value="Sim, aceito a Política de Privacidade" required>
-                            <label for="consentimento">Li e aceito a <a href="privacidade.html" target="_blank">Política de Privacidade</a> e autorizo o contato da equipe Guarienti.</label>
+                            <label for="consentimento">Li e aceito a <a href="privacidade.html" target="_blank" rel="noopener noreferrer">Política de Privacidade</a> e autorizo o contato da equipe Guarienti.</label>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Enviar Mensagem</button>
                         <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
