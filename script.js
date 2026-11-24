@@ -247,6 +247,15 @@ function initFaqAccordion() {
             });
         });
     });
+
+    document.querySelectorAll("[data-select-dept]").forEach((link) => {
+        link.addEventListener("click", () => {
+            const deptSelect = document.getElementById("departamento");
+            if (deptSelect && link.dataset.selectDept) {
+                deptSelect.value = link.dataset.selectDept;
+            }
+        });
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
