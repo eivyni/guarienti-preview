@@ -36,6 +36,7 @@ Toda evolução visual do site deve seguir estritamente o manual oficial da marc
 - `optimized_images/` — Imagens otimizadas em `.webp`, `.jpg` e `.png`
 - `favicon.ico`, `site.webmanifest`, `robots.txt`, `sitemap.xml` e `_headers` — SEO, PWA e cabeçalhos de cache/segurança
 - `scripts/build.js` — Gera `style.min.css` e `script.min.js` via `esbuild`
+- `scripts/generate-og.js` — Gera `optimized_images/og-image.jpg` (1200×630) no padrão da Identidade Visual 2025
 - `scripts/dev.js` — Servidor estático local para desenvolvimento
 
 ## Como trabalhar no projeto
@@ -44,4 +45,5 @@ Toda evolução visual do site deve seguir estritamente o manual oficial da marc
 npm install
 npm run dev    # Servidor local em http://127.0.0.1:3000
 npm run build  # Atualiza style.min.css e script.min.js após editar style.css ou script.js
+npm run og     # Regenera optimized_images/og-image.jpg no padrão oficial da marca
 ```

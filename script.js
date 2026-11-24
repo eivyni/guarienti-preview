@@ -339,7 +339,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+function initScrollSpy() {
+    const navLinks = Array.from(document.querySelectorAll('#nav-menu a.nav-link[href^="#"]'));
+    if (!navLinks.length) return;
+
+    const entries = navLinks
+        .map((link) => {
+            const target = document.querySelector(link.getAttribute("href"));
+            return target ? { link, target } : null;
+        })
+        .filter(Boolean);
+
+    if (!entries.length) return;
+
+    const updateActive = () => {
+        const scrollPos = window.scrollY + 140;
+        let current = entries[0];
+        for (const item of entries) {
+            if (item.target.offsetTop <= scrollPos) {
+                current = item;
+            }
+        }
+        entries.forEach(({ link }) => {
+            link.classList.toggle("active", link === current.link);
+        });
+    };
+
+    window.addEventListener("scroll", updateActive, { passive: true });
+    updateActive();
+}
+
     initContactForm();
     initFaqAccordion();
+    initScrollSpy();
     initConsentAndAnalytics();
 });
