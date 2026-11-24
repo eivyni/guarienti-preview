@@ -17,7 +17,8 @@ const mimeTypes = {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
     ".webp": "image/webp",
-    ".ico": "image/x-icon"
+    ".ico": "image/x-icon",
+    ".webmanifest": "application/manifest+json; charset=utf-8"
 };
 
 const server = http.createServer((req, res) => {
@@ -34,8 +35,14 @@ const server = http.createServer((req, res) => {
 
     fs.stat(safePath, (err, stats) => {
         if (err || !stats.isFile()) {
-            res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-            res.end("404 Not Found");
+            const notFoundPage = path.join(rootDir, "404.html");
+            if (fs.existsSync(notFoundPage)) {
+                res.writeHead(404, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-cache" });
+                fs.createReadStream(notFoundPage).pipe(res);
+            } else {
+                res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+                res.end("404 Not Found");
+            }
             return;
         }
         const ext = path.extname(safePath).toLowerCase();

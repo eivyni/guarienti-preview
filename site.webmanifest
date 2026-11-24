@@ -1,0 +1,22 @@
+{
+  "name": "Frigorífico Guarienti",
+  "short_name": "Guarienti",
+  "description": "Excelência na produção e comercialização de carnes bovina e suína com procedência do Rio Grande do Sul.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#7A1F1F",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "optimized_images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "optimized_images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -4,14 +4,15 @@ Landing page institucional do **Frigorífico Guarienti** (`https://frigorificogu
 
 ## Estrutura do projeto
 
-- `index.html` — Página principal (Início, Sobre Nós, Produtos e Contato com Web3Forms)
+- `index.html` — Página principal (Início, Sobre Nós, Produtos e Contato B2B com Web3Forms)
 - `privacidade.html` — Política de Privacidade (LGPD) e gestão de cookies
+- `404.html` — Página personalizada de erro 404 (evita soft-404 na Cloudflare Pages)
 - `style.css` / `style.min.css` — Estilos fonte e versão minificada usada nas páginas
-- `script.js` / `script.min.js` — Scripts fonte (formulário Web3Forms + fallback WhatsApp, consentimento LGPD/GA4, menu mobile, animações) e versão minificada
-- `optimized_images/` — Imagens otimizadas em `.webp`, `.jpg` e `.png` (incluindo variantes responsivas e Open Graph)
-- `robots.txt` e `sitemap.xml` — Configurações de SEO
+- `script.js` / `script.min.js` — Scripts fonte (formulário Web3Forms + máscara de telefone + fallback WhatsApp, consentimento LGPD/GA4, menu mobile, animações) e versão minificada
+- `optimized_images/` — Imagens otimizadas em `.webp`, `.jpg` e `.png` (incluindo variantes responsivas do hero e Open Graph)
+- `favicon.ico`, `site.webmanifest`, `robots.txt`, `sitemap.xml` e `_headers` — SEO, PWA e cabeçalhos de cache/segurança (Cloudflare Pages)
 - `scripts/build.js` — Gera `style.min.css` e `script.min.js` via `esbuild`
-- `scripts/dev.js` — Servidor estático local para desenvolvimento
+- `scripts/dev.js` — Servidor estático local para desenvolvimento (com suporte a `404.html`)
 
 ## Como trabalhar no projeto
 

@@ -4,6 +4,23 @@ const SITE_CONFIG = {
     CONSENT_KEY: "guarienti_cookie_consent"
 };
 
+const ICON_SPINNER =
+    '<svg class="icon icon-spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';
+
+const ICON_CHECK_CIRCLE =
+    '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+
+function formatPhoneBR(value) {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    if (digits.length === 0) return "";
+    if (digits.length <= 2) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) {
+        return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    }
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 function initContactForm() {
     const form = document.getElementById("contact-form");
     if (!form) return;
@@ -11,6 +28,15 @@ function initContactForm() {
     const statusEl = document.getElementById("form-status");
     const submitBtn = form.querySelector('button[type="submit"]');
     const accessKeyInput = form.querySelector('input[name="access_key"]');
+    const subjectInput = form.querySelector('input[name="subject"]');
+    const deptSelect = form.querySelector("#departamento");
+    const phoneInput = form.querySelector("#telefone");
+
+    if (phoneInput) {
+        phoneInput.addEventListener("input", () => {
+            phoneInput.value = formatPhoneBR(phoneInput.value);
+        });
+    }
 
     const showStatus = (type, html) => {
         if (statusEl) {
@@ -21,14 +47,20 @@ function initContactForm() {
     };
 
     const buildWhatsAppUrl = (formData) => {
-        const message = [
-            "Olá! Vim pelo site e gostaria de falar com o comercial.",
-            `*Nome:* ${formData.get("nome") || ""}`,
+        const departamento = formData.get("departamento") || "Comercial";
+        const empresa = (formData.get("empresa") || "").trim();
+        const lines = [
+            "Olá! Vim pelo site e gostaria de falar com a equipe.",
+            `*Departamento:* ${departamento}`,
+            `*Nome:* ${formData.get("nome") || ""}`
+        ];
+        if (empresa) lines.push(`*Empresa/Cidade:* ${empresa}`);
+        lines.push(
             `*E-mail:* ${formData.get("email") || ""}`,
             `*Telefone:* ${formData.get("telefone") || ""}`,
             `*Mensagem:* ${formData.get("mensagem") || ""}`
-        ].join("\n");
-        return `https://wa.me/${SITE_CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        );
+        return `https://wa.me/${SITE_CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
     };
 
     form.addEventListener("submit", async (event) => {
@@ -38,11 +70,15 @@ function initContactForm() {
             return;
         }
 
+        if (subjectInput && deptSelect && deptSelect.value) {
+            subjectInput.value = `Novo contato (${deptSelect.value}) - Frigorífico Guarienti`;
+        }
+
         const formData = new FormData(form);
         const hasValidKey = accessKeyInput && accessKeyInput.value && !accessKeyInput.value.startsWith("COLE_");
 
         if (!hasValidKey) {
-            trackEvent("generate_lead", { method: "whatsapp_fallback" });
+            trackEvent("generate_lead", { method: "whatsapp_fallback", departamento: formData.get("departamento") || "" });
             window.open(buildWhatsAppUrl(formData), "_blank", "noopener");
             showStatus("success", "Abrimos o WhatsApp com a sua mensagem. É só tocar em <strong>enviar</strong>.");
             return;
@@ -51,7 +87,7 @@ function initContactForm() {
         const originalBtnHtml = submitBtn ? submitBtn.innerHTML : "";
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Enviando...';
+            submitBtn.innerHTML = `${ICON_SPINNER} Enviando...`;
         }
 
         try {
@@ -66,17 +102,20 @@ function initContactForm() {
                 throw new Error(result.message || "Falha no envio");
             }
 
-            trackEvent("generate_lead", { method: "formulario" });
+            trackEvent("generate_lead", {
+                method: "formulario",
+                departamento: formData.get("departamento") || ""
+            });
             showStatus(
                 "success",
-                '<i class="fas fa-check-circle" aria-hidden="true"></i> Mensagem enviada! Nossa equipe comercial retornará em breve.'
+                `${ICON_CHECK_CIRCLE} Mensagem enviada! Nossa equipe retornará em breve.`
             );
             form.reset();
         } catch (err) {
             const waUrl = buildWhatsAppUrl(formData);
             showStatus(
                 "error",
-                `Não foi possível enviar agora. <a href="${waUrl}" target="_blank" rel="noopener noreferrer">Envie pelo WhatsApp</a> ou escreva para <a href="mailto:comercial@frigorificoguarienti.com.br">comercial@frigorificoguarienti.com.br</a>.`
+                `Não foi possível enviar agora. <a href="${waUrl}" target="_blank" rel="noopener noreferrer" data-track="formulario_fallback">Envie pelo WhatsApp</a> ou escreva para <a href="mailto:comercial@frigorificoguarienti.com.br">comercial@frigorificoguarienti.com.br</a>.`
             );
         } finally {
             if (submitBtn) {
@@ -220,13 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         navMenu.classList.toggle("active", open);
         document.body.classList.toggle("no-scroll", open);
-
-        const icon = menuBtn.querySelector("i");
-        if (icon) {
-            icon.classList.toggle("fa-bars", !open);
-            icon.classList.toggle("fa-times", open);
-        }
-
         menuBtn.setAttribute("aria-expanded", String(open));
         menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
     }
