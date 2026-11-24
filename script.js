@@ -237,6 +237,18 @@ function showCookieBanner() {
     });
 }
 
+function initFaqAccordion() {
+    const items = document.querySelectorAll(".faq-item");
+    items.forEach((item) => {
+        item.addEventListener("toggle", () => {
+            if (!item.open) return;
+            items.forEach((other) => {
+                if (other !== item && other.open) other.open = false;
+            });
+        });
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const header = document.getElementById("header");
     const backToTopBtn = document.getElementById("back-to-top");
@@ -319,5 +331,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     initContactForm();
+    initFaqAccordion();
     initConsentAndAnalytics();
 });

@@ -4,7 +4,7 @@ Landing page institucional do **Frigorífico Guarienti** (`https://frigorificogu
 
 ## Estrutura do projeto
 
-- `index.html` — Página principal (Início, Sobre Nós, Produtos e Contato B2B com Web3Forms)
+- `index.html` — Página principal (Hero, faixa de credibilidade SISBI-POA, Sobre Nós, Produtos com CTA comercial, FAQ B2B, Contato com Web3Forms e mapa Google Maps)
 - `privacidade.html` — Política de Privacidade (LGPD) e gestão de cookies
 - `404.html` — Página personalizada de erro 404 (evita soft-404 na Cloudflare Pages)
 - `style.css` / `style.min.css` — Estilos fonte e versão minificada usada nas páginas
