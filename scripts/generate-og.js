@@ -141,9 +141,9 @@ const html = `<!DOCTYPE html>
         <img src="${logoDataUri}" alt="Frigorífico Guarienti">
       </div>
       <div class="accent-bar"></div>
-      <div class="eyebrow">Indústria Frigorífica · Inspeção SISBI-POA</div>
+      <div class="eyebrow">Indústria Frigorífica · CISPOA 913 · SISBI-POA</div>
       <h1>Abate para Terceiros, Lojas Próprias e Carnes</h1>
-      <p class="subtitle">Força industrial, segurança sanitária nacional e procedência gaúcha.</p>
+      <p class="subtitle">Abate bovino e suíno, desossa, embalagem a vácuo e entrega com frota própria refrigerada.</p>
     </div>
     <div class="footer-bar">
       <strong>frigorificoguarienti.com.br</strong>

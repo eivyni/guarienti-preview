@@ -839,7 +839,8 @@ section {
     gap: 8px;
     padding: 7px 14px;
     background-color: var(--color-black);
-    border: 1px solid rgba(247, 247, 247, 0.18);
+    border: 1px solid rgba(247, 247, 247, 0.16);
+    border-left: 3px solid var(--color-bordo);
     border-radius: 4px;
     font-family: var(--font-subtitle);
     font-size: .82rem;
@@ -849,7 +850,8 @@ section {
 }
 
 .parceiro-pill .icon {
-    color: var(--color-bordo);
+    color: var(--color-light);
+    font-size: .95rem;
 }
 
 .parceiros-cta {
@@ -1527,6 +1529,20 @@ footer {
     font-size: .86rem;
 }
 
+.footer-seal {
+    font-family: var(--font-subtitle);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--color-light);
+    background-color: var(--color-charcoal);
+    border: 1px solid rgba(247, 247, 247, 0.14);
+    border-left: 3px solid var(--color-bordo);
+    padding: 6px 14px;
+    border-radius: 4px;
+}
+
 .footer-address .icon,
 .footer-hours .icon {
     color: rgba(247, 247, 247, 0.85);
@@ -1774,7 +1790,7 @@ footer {
         border-right: 0;
     }
     .servicos-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .parceiros-banner {
         flex-direction: column;
@@ -1876,6 +1892,9 @@ footer {
 }
 
 @media (max-width: 600px) {
+    .servicos-grid {
+        grid-template-columns: 1fr;
+    }
     .credibilidade-grid {
         grid-template-columns: 1fr;
         gap: 0;
